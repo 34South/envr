@@ -2,9 +2,7 @@
 
 Envr is a Go package for setting up environment vars.
 
-It works, however I am a pretty average programmer at best, and new to Go.
-
-The idea is to declare the environment variables required and then Envr will
+The idea is to declare the environment variables required and then envr will
 check and load them from a *.env* file.
 
 Like this:
