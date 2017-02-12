@@ -21,13 +21,14 @@ type Envr struct {
 	Error        error             `json:"error"`           // error field, for easier method chaining
 }
 
-// NewEnvr sets up a new Environment. It takes name, filename, and a list of required vars.
+// New sets up a new Environment. It takes an arbitrary name (n), a list of required vars (vs) and
+// zero or more file names from which to read the vars, eg ".env1,.env2". Defaults to .env
 func New(n string, vs []string, f ...string) *Envr {
 
 	e := Envr{}
 	e.Ready = false
 	e.Name = n
-	// if no env file(s) are specified, default to a single .envOFF
+	// if no env file(s) are specified, default to a single .env
 	if len(f) == 0 {
 		e.Files = append(e.Files, ".env")
 	}
@@ -46,7 +47,7 @@ func New(n string, vs []string, f ...string) *Envr {
 	return &e
 }
 
-// Update sets / updates Envr fields
+// Update sets / updates fields in the Envr value
 func (e *Envr) Update() {
 
 	// Empty out first
