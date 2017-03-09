@@ -3,7 +3,6 @@
 A Go package to check / set environment vars, optionally from a local *.env* file.
 
 ## Purpose
-----------
 
 Created for using a *.env* file in a local development set up, and deferring to env vars in testing/production - eg Heroku settings.
 
