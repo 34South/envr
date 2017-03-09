@@ -8,16 +8,14 @@ A Go package to check / set environment vars, optionally from a local *.env* fil
 Created for using a *.env* file in a local development set up, and deferring to env vars in testing/production - eg Heroku settings.
 
 
-#### Installation
------------------
+## Installation
 
 ```bash
 $ go get github.com/34South/envr
 ```
 
 
-#### Usage
-----------
+## Usage
 
 Chain the method calls in your init(), thus:
 
@@ -83,8 +81,7 @@ Print a JSON version of the Envr value.
 
 
 
-#### Todo
----------
+## Todo
 * Make it better
 * Check vars that exist in config but are MISSING in the expectatons list
 * Learn how to write tests
@@ -94,14 +91,12 @@ Print a JSON version of the Envr value.
 ... it's early days... I will keep tweaking it.
 
 
-#### Credit
------------
+## Credit
 This is just a wrapper for [godotenv](https://github.com/joho/godotenv) package to load *.env*  
 - skills, @joho
 
 
-#### License
-------------
+## License
 The [MIT](https://mit-license.org/) License (MIT)
 Copyright © 2017 Mike Donnici
 
