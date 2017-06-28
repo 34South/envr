@@ -2,7 +2,6 @@ package envr
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"testing"
 )
