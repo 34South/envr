@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/34South/envr)](https://goreportcard.com/report/gojp/goreportcard) [![Build Status](https://travis-ci.org/34South/envr.svg?branch=master)](https://travis-ci.org/34South/envr)
+
 # envr :earth_asia:
 
 A Go package to check / set environment vars, optionally from a local *.env* file.
