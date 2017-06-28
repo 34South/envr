@@ -1,14 +1,15 @@
 package envr
 
 import (
-	"os"
 	"encoding/json"
 	"fmt"
-	"log"
-	"strings"
 	"github.com/joho/godotenv"
+	"log"
+	"os"
+	"strings"
 )
 
+// Envr contains info about the environment setup
 type Envr struct {
 	Ready        bool              `json:"ready"`           // Flag for the goodness
 	Name         string            `json:"environmentName"` // name of environment
@@ -132,7 +133,7 @@ func (e *Envr) Fatal() *Envr {
 	return e
 }
 
-// VarSet checks if a var is currently set
+// IsSet checks if a var is currently set
 func (e *Envr) IsSet(v string) bool {
 
 	return len(os.Getenv(v)) > 0

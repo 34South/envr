@@ -16,13 +16,9 @@ func TestNewEnv(t *testing.T) {
 	var1 := "ENVR_VAR1"
 	var2 := "ENVR_VAR2"
 	var3 := "ENVR_VAR3"
-	e, err := NewEnvr(name, []string{var1, var2, var3})
+	e := New(name, []string{var1, var2, var3})
 
 	fmt.Println(e.JSON())
-
-	if err != nil {
-		log.Fatalln(err)
-	}
 
 	if e.Name != name {
 		msg := fmt.Sprintf("Expected %S, got %S", name, e.Name)
@@ -70,7 +66,7 @@ func TestAuto(t *testing.T) {
 	var1 := "ENVR_VAR1"
 	var2 := "ENVR_VAR2"
 	var3 := "ENVR_VAR3"
-	e, _ := NewEnvr(name, []string{var1, var2, var3})
+	e := New(name, []string{var1, var2, var3})
 
 	j, _ := e.JSON()
 	fmt.Println("Before Auto():", j)
