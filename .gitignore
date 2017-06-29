@@ -25,6 +25,7 @@ _testmain.go
 .idea
 
 # Local
-.env
+# Add .env file to repo for tests
+# .env
 .idea
 
