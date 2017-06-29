@@ -1,5 +1,3 @@
 language: go
 go:
   - 1.8
-env:
-  - ENVR_VAR1="ENVR_VAR1" ENVR_VAR2="ENVR_VAR2" ENVR_VAR3="ENVR_VAR3"
