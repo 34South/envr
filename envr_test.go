@@ -1,8 +1,8 @@
 package envr
 
 import (
-	"os"
 	"fmt"
+	"os"
 	"testing"
 
 	"github.com/fatih/color"
@@ -229,4 +229,3 @@ func TestPassive(t *testing.T) {
 
 	printTick()
 }
-
