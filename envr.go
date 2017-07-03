@@ -1,7 +1,6 @@
 package envr
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/joho/godotenv"
 	"log"
