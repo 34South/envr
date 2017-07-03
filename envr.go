@@ -172,15 +172,3 @@ func (e *Envr) SetVar(v, s string) error {
 }
 
 // TODO: A method to check for vars that are INV the env file but NOT in the list of expected vars
-
-// JSON returns a JSOn version of the Envr value
-func (e *Envr) JSON() (string, error) {
-
-	bs, err := json.MarshalIndent(e, "", "\t")
-	//bs, err := json.Marshal(e)
-	if err != nil {
-		return "", nil
-	}
-
-	return string(bs), nil
-}

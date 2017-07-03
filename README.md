@@ -61,9 +61,9 @@ VAR1="value one"
 VAR2=1234
 ```
 
-See [https://github.com/joho/godotenv](godotenv) for details.
+See [godotenv](https://github.com/joho/godotenv) for details.
 
-##Methods
+## Methods
 
 **.Auto()**
 Quick way to do **.Clean.Fatal()** - sets all the expected vars found in `.env`, and exists if any are missing.
@@ -76,10 +76,6 @@ Set all expected vars without checking first.
 
 **.Fatal()**
 Exits if the environment is *NOT* `.Ready = true`
-
-**.JSON()**
-Print a JSON version of the Envr value.
-
 
 ## Todo
 * Check vars that exist in config but are MISSING in the expectations list
