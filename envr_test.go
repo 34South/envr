@@ -37,25 +37,25 @@ func TestNew(t *testing.T) {
 
 	// Check field values
 	if e.Name != name {
-		msg := fmt.Sprintf("Expected %S, got %S", name, e.Name)
+		msg := fmt.Sprintf("Expected %s, got %s", name, e.Name)
 		printCross()
 		t.Error(msg)
 	}
 
 	if e.RequiredVars[0] != var1 {
-		msg := fmt.Sprintf("Expected %S, got %S", var1, e.RequiredVars[0])
+		msg := fmt.Sprintf("Expected %s, got %s", var1, e.RequiredVars[0])
 		printCross()
 		t.Error(msg)
 	}
 
 	if e.RequiredVars[1] != var2 {
-		msg := fmt.Sprintf("Expected %S, got %S", var2, e.RequiredVars[1])
+		msg := fmt.Sprintf("Expected %s, got %s", var2, e.RequiredVars[1])
 		printCross()
 		t.Error(msg)
 	}
 
 	if e.RequiredVars[2] != var3 {
-		msg := fmt.Sprintf("Expected %S, got %S", var2, e.RequiredVars[2])
+		msg := fmt.Sprintf("Expected %s, got %s", var2, e.RequiredVars[2])
 		printCross()
 		t.Error(msg)
 	}
