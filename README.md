@@ -1,12 +1,12 @@
 [![Go Report Card](https://goreportcard.com/badge/34South/envr)](https://goreportcard.com/report/gojp/goreportcard) [![Build Status](https://travis-ci.org/34South/envr.svg?branch=master)](https://travis-ci.org/34South/envr)
 
-# envr :earth_asia:
+# envr
 
-A Go package to check / set environment vars, optionally from a local *.env* file.
+Check / set required env vars, optionally from a local `.env` file. Uses the [godotenv](https://github.com/joho/godotenv) by [John Barton](https://github.com/joho/).
 
 ## Purpose
 
-Created for using a *.env* file in a local development set up, and deferring to env vars in testing/production - eg Heroku settings.
+A convenient way to set env vars with a local file, or defer to env vars already set by some other means, eg Heroku config.
 
 
 ## Installation
@@ -18,7 +18,7 @@ $ go get github.com/34South/envr
 
 ## Usage
 
-Chain the method calls in your init(), thus:
+Set up a new Envr and pass in the env vars your app expects to be set. 
 
 ```go
 func init() {
@@ -27,15 +27,12 @@ func init() {
   		"SOME_VAR2",
   		"SOME_APP_ID",
   		"SOME_API_KEY",
-	}).Passive().Fatal()
+	}).Auto()
 }
 ```
 
-**Envr type**
-
-The following struct is used: 
-
 ```Go
+// Envr contains fields related to the environment vars 
 type Envr struct {
 	Ready        bool              `json:"ready"`           // Flag for the goodness
 	Name         string            `json:"environmentName"` // name of environment
@@ -52,49 +49,43 @@ type Envr struct {
 **Envr Methods**
 
 **.New("envName", []string{"var1", "var2"}, "configFile1, configFile2...")**
-* Initialises a new Envr value with arbitrary name "envName"
+* Initialises a new Envr value with (arbitrary) name "envName"
 * Second argument is a []string containing names of all expected / required env vars
-* Third agument is an optional list of one or more files containing env var names and values. If not present it will look for a single file named *.env*
+* Third argument is an optional list of files containing env var names and values. If not present defaults to `.env`.
 
-The *.env* file is formatted like this:
+The `.env` file can be formatted like this:
 
 ```
 # Comments are allowed
-VAR1="valueOne"
+VAR1="value one"
 VAR2=1234
 ```
 
+See [https://github.com/joho/godotenv](godotenv) for details.
+
+##Methods
+
 **.Auto()**
-Quick way to do **.Clean.Fatal()** - sets all the expected vars that can
-be found in *.env*, and do log.Fatal() if any are missing.
+Quick way to do **.Clean.Fatal()** - sets all the expected vars found in `.env`, and exists if any are missing.
 
 **.Passive()**
-Set expected vars ONLY if they are NOT already set.
+Set expected vars *ONLY* if they are *NOT* already set.
 
 **.Clean()**
-Set all expected vars without checking.
+Set all expected vars without checking first.
 
 **.Fatal()**
-Do log.Fatal() if the environment is not all ok.
+Exits if the environment is *NOT* `.Ready = true`
 
 **.JSON()**
 Print a JSON version of the Envr value.
 
 
-
 ## Todo
-* Make it better
-* Check vars that exist in config but are MISSING in the expectatons list
+* Check vars that exist in config but are MISSING in the expectations list
 * Learn how to write tests
 * Write tests
 * Go sailing
-
-... it's early days... I will keep tweaking it.
-
-
-## Credit
-This is just a wrapper for [godotenv](https://github.com/joho/godotenv) package to load *.env*  
-- skills, @joho
 
 
 ## License
