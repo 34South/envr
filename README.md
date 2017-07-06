@@ -1,4 +1,4 @@
-[![Go Report Card](https://goreportcard.com/badge/34South/envr)](https://goreportcard.com/report/gojp/goreportcard) [![Build Status](https://travis-ci.org/34South/envr.svg?branch=master)](https://travis-ci.org/34South/envr)
+[![Go Report Card](https://goreportcard.com/badge/34South/envr)](https://goreportcard.com/report/34South/envr) [![Build Status](https://travis-ci.org/34South/envr.svg?branch=master)](https://travis-ci.org/34South/envr)
 
 # envr
 
