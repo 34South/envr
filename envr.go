@@ -2,16 +2,17 @@ package envr
 
 import (
 	"fmt"
-	"github.com/joho/godotenv"
 	"log"
 	"os"
 	"strings"
+
+	"github.com/joho/godotenv"
 )
 
 // Envr contains info about the environment setup
 type Envr struct {
 	Ready        bool              `json:"ready"`           // Flag for the goodness
-	Name         string            `json:"environmentName"` // name of environment
+	Name         string            `json:"environmentName"` // envName of environment
 	Files        []string          `json:"configFiles"`     // files to read from, default .env
 	RequiredVars []string          `json:"requiredVars"`    // the env vars we need
 	ExistingVars []string          `json:"existingVars"`    // the env vars that are set
@@ -21,7 +22,7 @@ type Envr struct {
 	Error        error             `json:"error"`           // error field, for easier method chaining
 }
 
-// New sets up a new Environment. It takes an arbitrary name (n), a list of required vars (vs) and
+// New sets up a new Environment. It takes an arbitrary envName (n), a list of required vars (vs) and
 // zero or more file names from which to read the vars, eg ".env1,.env2". Defaults to .env
 func New(n string, vs []string, f ...string) *Envr {
 
@@ -81,68 +82,56 @@ func (e *Envr) Update() {
 // Auto does Clean().Fatal() so will force the setting of all the
 // required vars from the config, and die if things didn't workout
 func (e *Envr) Auto() *Envr {
-
 	return e.Clean().Fatal()
 }
 
 // Passive checks if vars are already set, and only sets them if they are not.
 func (e *Envr) Passive() *Envr {
 
-	// Nothing to do!
-	if len(e.MissingVars) == 0 {
-		return e
-	}
-
-	// TODO add this to the struct and do once
-	// Otherwise, read in the config as we have vars to set!
+	// Reads env vars into a map without setting to env
 	ev, err := godotenv.Read(e.Files...)
 	if err != nil {
 		e.Error = err
 		return e
 	}
 
-	e.SetList(e.MissingVars, ev)
+	for _, v := range e.RequiredVars {
+		_, exists := os.LookupEnv(v)
+		if !exists {
+			e.SetVar(v, ev[v])
+		}
+	}
 
 	return e
 }
 
-// Clean sets every var present in the confg without checking if they exist
+// Clean sets all vars present in the config to the env, overriding existing values
 func (e *Envr) Clean() *Envr {
-
-	// Read in the config files
 	ev, err := godotenv.Read(e.Files...)
 	if err != nil {
 		e.Error = err
 		return e
 	}
-
 	e.SetList(e.RequiredVars, ev)
-
 	return e
 }
 
-// Fatal  is chained on so we can log fatal in the event our
-// environment is not set up properly
+// Fatal  is chained on so we can log fatal in the event our environment is not set up properly
 func (e *Envr) Fatal() *Envr {
-
 	if e.Ready == false {
 		log.Fatalf("Envr: Bailing out, as requested - %s\n", e.Status)
 	}
-
 	return e
 }
 
-// IsSet checks if a var is currently set
+// IsSet returns true if an env var is sey, even if it is blank
 func (e *Envr) IsSet(v string) bool {
-
-	return len(os.Getenv(v)) > 0
+	_, exists := os.LookupEnv(v)
+	return exists
 }
 
-// SetList just sets a list of env vars passed in to 'lv'.
-// Also need to pass in the config vars map 'ev' so we can check
-// there is a value there before we try to set it.
+// SetList just sets sets the required vars to the environment
 func (e *Envr) SetList(lv []string, ev map[string]string) *Envr {
-
 	for _, v := range e.RequiredVars {
 		if val, ok := ev[v]; ok {
 			err := e.SetVar(v, val)
@@ -152,21 +141,16 @@ func (e *Envr) SetList(lv []string, ev map[string]string) *Envr {
 			}
 		}
 	}
-
 	return e
 }
 
 // SetVar sets env var 'v' to value 's', if successful it updates Envr
 func (e *Envr) SetVar(v, s string) error {
-
 	err := os.Setenv(v, s)
 	if err != nil {
 		return err
 	}
-
-	// Update Envr
 	e.Update()
-
 	return nil
 }
 
